@@ -1,0 +1,83 @@
+<!-- templates/doctor_book.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage All Appointments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .new-date-field { display: none; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('doclog') }}">Back to Doctor Login</a>
+    </nav>
+    <section class="appointments">
+        <h1>Manage All Appointments</h1>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <p class="{{ category }}">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Doctor ID</th>
+                    <th>Patient Name</th>
+                    <th>Requested Date</th>
+                    <th>Status</th>
+                    <th>New Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if appointments %}
+                    {% for appointment in appointments %}
+                    <tr>
+                        <td>{{ appointment.id }}</td>
+                        <td>{{ appointment.doctor_id }}</td>
+                        <td>{{ appointment.patient.first_name }} {{ appointment.patient.last_name }}</td>
+                        <td>{{ appointment.requested_date }}</td>
+                        <td>{{ appointment.status }}</td>
+                        <td>{{ appointment.new_date if appointment.new_date else 'N/A' }}</td>
+                        <td>
+                            <form action="{{ url_for('update_appointment', appointment_id=appointment.id) }}" method="POST">
+                                <select name="status" onchange="toggleNewDate(this, '{{ appointment.id }}')">
+                                    <option value="Accepted" {% if appointment.status == 'Accepted' %}selected{% endif %}>Accept</option>
+                                    <option value="Rejected" {% if appointment.status == 'Rejected' %}selected{% endif %}>Reject</option>
+                                    <option value="Rescheduled" {% if appointment.status == 'Rescheduled' %}selected{% endif %}>Reschedule</option>
+                                </select>
+                                <input type="date" name="new_date" id="new_date_{{ appointment.id }}" class="new-date-field" 
+                                       value="{{ appointment.new_date if appointment.new_date else '' }}">
+                                <button type="submit">Update</button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="7">No appointments found.</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </section>
+    <script>
+        function toggleNewDate(select, appointmentId) {
+            const newDateField = document.getElementById(`new_date_${appointmentId}`);
+            newDateField.style.display = select.value === 'Rescheduled' ? 'block' : 'none';
+        }
+        document.querySelectorAll('select[name="status"]').forEach(select => {
+            const appointmentId = select.closest('tr').querySelector('input[name="new_date"]').id.split('_')[2];
+            toggleNewDate(select, appointmentId);
+        });
+    </script>
+</body>
+</html>

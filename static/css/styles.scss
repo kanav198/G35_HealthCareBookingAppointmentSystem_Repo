@@ -1,0 +1,63 @@
+// styles.scss
+$primary-color: #3b82f6;
+$secondary-color: #6b7280;
+$background-color: #f3f4f6;
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: $background-color;
+    color: $secondary-color;
+    margin: 0;
+    padding: 0;
+}
+
+nav {
+    background-color: $primary-color;
+    padding: 1rem;
+    a {
+        color: white;
+        text-decoration: none;
+        font-weight: bold;
+    }
+}
+
+.appointments {
+    padding: 2rem;
+    h1 {
+        color: $primary-color;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        th, td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: $primary-color;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        form {
+            display: flex;
+            gap: 0.5rem;
+            select, input, button {
+                padding: 0.5rem;
+                border: 1px solid #ddd;
+                border-radius: 0.25rem;
+            }
+            button {
+                background-color: $primary-color;
+                color: white;
+                border: none;
+                cursor: pointer;
+                &:hover {
+                    background-color: darken($primary-color, 10%);
+                }
+            }
+        }
+    }
+}

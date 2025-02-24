@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Jhonson, MD - Provider Profile</title>
+    <link rel="stylesheet" href="styles1.css">
+    <style>
+        /* Base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f3f4f6;
+    color: #374151;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    font-size: 0.875rem;
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.breadcrumb a {
+    color: #6b7280;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: #3b82f6;
+}
+
+/* Header Section */
+.profile-header {
+    background: linear-gradient(to right, #eef2ff, #e0e7ff);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.header-content {
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.profile-image {
+    width: 96px;
+    height: 96px;
+    background-color: #9ca3af;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.875rem;
+}
+
+.profile-info h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 0.25rem;
+}
+
+.specialty {
+    color: #6b7280;
+    margin-bottom: 1rem;
+}
+
+.rating-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.stars {
+    display: flex;
+    align-items: center;
+}
+
+.star {
+    color: #d1d5db;
+    font-size: 1.25rem;
+}
+
+.rating-count {
+    color: #3b82f6;
+    margin-left: 0.5rem;
+    cursor: pointer;
+}
+
+.provider-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.badge.accepting {
+    color: #059669;
+}
+
+.badge.experience {
+    color: #6b7280;
+}
+
+.badge.website {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.action-buttons {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    gap: 1rem;
+}
+
+.primary-btn {
+    background-color: #3b82f6;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    cursor: pointer;
+}
+
+.secondary-btn {
+    border: 1px solid #3b82f6;
+    color: #3b82f6;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.375rem;
+    background: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Main Content */
+.main-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1.5rem;
+}
+
+.card {
+    background: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1.5rem;
+}
+
+.card h2 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #111827;
+    margin-bottom: 1rem;
+}
+
+.services-list {
+    list-style: none;
+    margin-top: 1rem;
+}
+
+.services-list li {
+    margin-bottom: 1rem;
+}
+
+.services-list strong {
+    color: #111827;
+}
+
+/* Updated Conditions List with View More functionality */
+.conditions-list {
+    list-style: none;
+    margin-bottom: 1rem;
+    position: relative;
+    transition: max-height 0.3s ease-out;
+    overflow: hidden;
+}
+
+.conditions-list li {
+    color: #6b7280;
+    padding: 0.25rem 0;
+}
+
+.view-more-checkbox {
+    display: none;
+}
+
+.expandable {
+    display: none;
+}
+
+.view-more {
+    color: #3b82f6;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 0.875rem;
+    display: inline-block;
+    position: relative;
+}
+
+.view-more-text,
+.view-less-text {
+    transition: opacity 0.3s ease;
+}
+
+.view-less-text {
+    display: none;
+}
+
+.view-more-checkbox:checked ~ .conditions-list .expandable {
+    display: block;
+}
+
+.view-more-checkbox:checked ~ .view-more .view-more-text {
+    display: none;
+}
+
+.view-more-checkbox:checked ~ .view-more .view-less-text {
+    display: inline;
+}
+
+.location-info h3 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.location-info p {
+    color: #6b7280;
+}
+
+.location-actions {
+    display: flex;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.link {
+    color: #3b82f6;
+    text-decoration: none;
+}
+
+.hours {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 1rem;
+    margin-top: 1rem;
+}
+
+.hours h4 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.hours-table {
+    width: 100%;
+    font-size: 0.875rem;
+}
+
+.hours-table td {
+    padding: 0.25rem 0;
+}
+
+.hours-table td:first-child {
+    color: #6b7280;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        grid-template-columns: 1fr;
+    }
+
+    .header-content {
+        flex-direction: column;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+
+    .rating-section {
+        flex-wrap: wrap;
+    }
+}
+
+/* Interactive Elements */
+.primary-btn:hover {
+    background-color: #2563eb;
+}
+
+.secondary-btn:hover {
+    background-color: #eff6ff;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.review-btn, .save-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    cursor: pointer;
+    color: #3b82f6;
+    font-size: 0.875rem;
+}
+
+.save-btn {
+    color: #6b7280;
+}
+
+.icon {
+    font-size: 1rem;
+}
+
+/* View More Button Hover Effect */
+.view-more:hover {
+    text-decoration: underline;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Previous content remains the same until the Conditions Section -->
+        <nav class="breadcrumb">
+            <a href="#">Swift Care</a> &gt;
+            <a href="#">Providers</a> &gt;
+            <a href="#">Family Medicine</a> &gt;
+            <a href="#">Baltimore</a> &gt;
+            <span>Dr. Jhonson, MD</span>
+        </nav>
+
+        <header class="profile-header">
+            <div class="header-content">
+                <div class="profile-image">OUTREACH</div>
+                <div class="profile-info">
+                    <h1>Dr. Johnson, MD</h1>
+                    <p class="specialty">Family Medicine</p>
+                    
+                    <div class="rating-section">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="rating-count">(0 Rating)</span>
+                        </div>
+                        <button class="review-btn">
+                            <span class="icon">✎</span> Leave a review
+                        </button>
+                        <button class="save-btn">
+                            <span class="icon">🔖</span> Save Provider
+                        </button>
+                    </div>
+
+                    <div class="provider-badges">
+                        <span class="badge accepting">
+                            <span class="icon">+</span> Accepting New Patients
+                        </span>
+                        <span class="badge experience">41 Years Experience</span>
+                        <a href="#" class="badge website">
+                            <span class="icon">🌐</span> Visit Website
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <form action="{{ url_for('request_appointment') }}" method="POST">
+                    <input type="hidden" name="doctor_id" value="3"> <!-- Replace with the correct doctor_id -->
+                    <input type="date" name="requested_date" required>
+                    <button type="submit" class="primary-btn">Request Now</button>
+                </form>
+                <button class="secondary-btn">
+                    <span class="icon">📞</span> (800) 486-4617
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="content-left">
+                <section class="card overview">
+                    <h2>Overview</h2>
+                    <p>Preventive Care: Family doctors focus on preventive health services, including vaccinations, health screenings, and lifestyle counseling to prevent illness.</p>
+                    
+                    <ul class="services-list">
+                        <li>
+                            <strong>Addiction Treatment Programs</strong> -They diagnose and treat a wide range of acute and chronic illnesses, such as infections, diabetes, hypertension, and mental health conditions.
+                        </li>
+                        <li>
+                            <strong>Substance Abuse Treatment</strong> - Family physicians manage chronic illnesses like asthma, diabetes, and heart disease, coordinating care with specialists if needed.
+                        </li>
+                        <li>
+                            <strong>Addiction Therapy Programs</strong> - Therapy programs such as person-person therapy, nutrition 
+                            education, dual diagnosis, cognitive-behavioral therapy, dialectical behavior therapy, and trauma 
+                            therapy can help the whole person heal from addiction.
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- Updated Conditions Section with working view more -->
+                <section class="card conditions">
+                    <h2>Conditions Treated</h2>
+                    <input type="checkbox" id="view-more-check" class="view-more-checkbox">
+                    <ul class="conditions-list">
+                        <li>Cold and Flu: Viral infections, sinusitis, bronchitis</li>
+                        <li>Anxiety or phobic disorders</li>
+                        <li>Anxiety, dissociative and somatoform disorders</li>
+                        <li>Skin Conditions: Acne, eczema, psoriasis, rashes</li>
+                        <li>Infections: Ear infections, urinary tract infections (UTIs), skin infections</li>
+                        <li class="expandable">Depression</li>
+                        <li class="expandable">Drug dependence</li>
+                        <li class="expandable">Eating disorders</li>
+                        <li class="expandable">Mood disorders</li>
+                        <li class="expandable">Personality disorders</li>
+                        <li class="expandable">Post-traumatic stress disorder (PTSD)</li>
+                        <li class="expandable">Schizophrenia</li>
+                        <li class="expandable">Substance abuse</li>
+                    </ul>
+                    <label for="view-more-check" class="view-more">
+                        <span class="view-more-text">View more</span>
+                        <span class="view-less-text">View less</span>
+                    </label>
+                </section>
+            </div>
+
+            <div class="content-right">
+                <section class="card location">
+                    <h2>Locations</h2>
+                    <div class="location-info">
+                        <h3>OUTREACH</h3>
+                        <p>222 N Charles St Ste 101B</p>
+                        <p>Baltimore, MD, 21201</p>
+                        <div class="location-actions">
+                            <a href="#" class="link">Get Directions</a>
+                            <a href="tel:8004864617" class="link">(800) 486-4617</a>
+                        </div>
+
+                        <div class="hours">
+                            <h4>Hours</h4>
+                            <table class="hours-table">
+                                <tr><td>Mon</td><td>8:00 am - 12:30 pm</td></tr>
+                                <tr><td>Tue</td><td>8:00 am - 3:30 pm</td></tr>
+                                <tr><td>Wed</td><td>Closed</td></tr>
+                                <tr><td>Thu</td><td>1:00 pm - 4:30 pm</td></tr>
+                                <tr><td>Fri</td><td>Closed</td></tr>
+                                <tr><td>Sat</td><td>Closed</td></tr>
+                                <tr><td>Sun</td><td>Closed</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

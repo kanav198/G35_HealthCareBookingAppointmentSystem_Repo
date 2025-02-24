@@ -1,0 +1,28 @@
+<!-- templates/doctordescription_3rd.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gynecologist Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('patient_page') }}">Back to Patient Page</a>
+    </nav>
+    <section class="doctor-details">
+        <h1>Gynecologist</h1>
+        <p>Connect with our expert specialists for specific health concerns.</p>
+        <img src="{{ url_for('static', filename='images/d2.jpg') }}" alt="Gynecologist">
+        <p><strong>Experience:</strong> 10+ years</p>
+        <p><strong>Location:</strong> Main Hospital, Floor 3</p>
+        <form action="{{ url_for('request_appointment') }}" method="POST">
+            <label for="requested_date">Requested Date:</label>
+            <input type="date" id="requested_date" name="requested_date" required>
+            <input type="hidden" name="doctor_id" value="3"> <!-- Assuming doctor_id is 3 -->
+            <button type="submit" class="btn btn-primary">Request Appointment</button>
+        </form>
+    </section>
+</body>
+</html>

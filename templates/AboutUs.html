@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Swift Care</title>
+    <style>
+        :root {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --text-color: #333;
+            --light-bg: #e0f2f1;
+            --dark-bg: #2c3e50;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .hero {
+            /* background: url('https://source.unsplash.com/1600x900/?medical,technology') no-repeat center center/cover; */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(./static/l1.jpg);
+            background-size: cover;
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--primary-color);
+        }
+
+        .about-section {
+            padding: 6rem 0;
+            background: var(--light-bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .about-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .about-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .about-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .about-card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        .description-section {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            text-align: center;
+        }
+
+        .description-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .description-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .team-section {
+            padding: 6rem 0;
+            background: var(--light-bg);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-member {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+        }
+
+        .team-member img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: var(--dark-bg);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .about-grid, .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <a href="/templates/homepage.html" class="logo">Swift Care</a>
+            <ul>
+                <li><a href="home">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 style="font-family: cursive;">Welcome to Swift Care</h1>
+                <p style="font-weight: bolder;">Revolutionizing healthcare with speed, compassion, and cutting-edge technology.</p>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title">About Swift Care</h2>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <i class="fas fa-history"></i>
+                        <h3>Our Story</h3>
+                        <p>Founded in 2023, Swift Care emerged from a vision to transform the healthcare experience, making it more efficient and patient-centered.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-user-md"></i>
+                        <h3>Our Approach</h3>
+                        <p>We combine cutting-edge technology with compassionate care to provide swift, accurate, and personalized medical services.</p>
+                    </div>
+                    <div class="about-card">
+                        <i class="fas fa-lightbulb"></i>
+                        <h3>Innovation</h3>
+                        <p>At Swift Care, we're constantly innovating. From AI-powered diagnostics to telemedicine solutions, we're at the forefront of healthcare technology.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="description-section">
+            <div class="container">
+                <div class="description-content">
+                    <h2>Empowering Healthcare Through Technology</h2>
+                    <p>Swift Care is a revolutionary healthcare platform designed to bridge the gap between patients and healthcare providers. Our website offers a comprehensive suite of tools and resources to enhance the medical experience for both patients and professionals.</p>
+                    <p>Key features of our site include:</p>
+                    <ul>
+                        <li>Intuitive user interface for easy navigation</li>
+                        <li>Secure patient portals for managing personal health information</li>
+                        <li>Telemedicine capabilities for remote consultations</li>
+                        <li>AI-driven symptom checker for preliminary assessments</li>
+                        <li>Educational resources on various health topics</li>
+                        <li>Integration with wearable health devices for real-time data tracking</li>
+                    </ul>
+                    <p>Our goal is to make healthcare more accessible, efficient, and personalized for everyone.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="team" class="team-section">
+            <div class="container">
+                <h2 class="section-title">Meet Our Team</h2>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://source.unsplash.com/300x300/?portrait,man" alt="Kanav">
+                        <h3>Kanav</h3>
+                        <p>Full Stack Developer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://source.unsplash.com/300x300/?portrait,woman" alt="Saksham">
+                        <h3>Saksham</h3>
+                        <p>UI/UX Designer</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://source.unsplash.com/300x300/?portrait,boy" alt="Nitin">
+                        <h3>Nitin</h3>
+                        <p>Backend Specialist</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://source.unsplash.com/300x300/?portrait,girl" alt="Sanyam">
+                        <h3>Sanyam</h3>
+                        <p>Project Manager</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Swift Care. Created by Kanav, Saksham, Nitin, and Sanyam. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebMD Care Provider Search</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f5f5f5;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Navigation */
+.navbar {
+    background-color: #2563eb;
+    color: white;
+    padding: 1rem 0;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.list-practice {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+}
+
+.login {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+/* Search Section */
+.search-section {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.search-box {
+    flex: 1;
+    position: relative;
+}
+
+.search-box i {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 0.8rem 2.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-button {
+    background-color: #4169E1;
+    color: white;
+    border: none;
+    padding: 0 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Filters */
+.filters {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-width: 150px;
+}
+
+.checkbox-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Results */
+.results-title {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.provider-card {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.provider-image {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.provider-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.provider-info {
+    flex: 1;
+}
+
+.provider-info h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.specialty {
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.rating {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.rating i {
+    color: #ddd;
+    margin-right: 0.2rem;
+}
+
+.provider-details {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+.experience {
+    color: #4169E1;
+}
+
+.virtual-visit i {
+    margin-right: 0.5rem;
+    color: #4169E1;
+}
+
+ .address {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.provider-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.request-btn {
+    background-color: #4169E1;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.phone-btn {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 0.8rem 2rem;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .nav-links {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .search-section {
+        flex-direction: column;
+    }
+    
+    .provider-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .provider-details {
+        justify-content: center;
+    }
+    
+    .filters {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .auth-buttons {
+        display: none;
+    }
+    
+    .provider-actions {
+        width: 100%;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="logo"><a href="homepage.html" style="text-decoration: none;">Swift Care</a></div>
+            <div class="auth-buttons">
+                <button class="login" id="logoutButton">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Section -->
+    <div class="container">
+        <div class="search-section">
+            <div class="search-box">
+                <i class="fas fa-hospital"></i>
+                <input type="text" placeholder="Fever">
+            </div>
+            <div class="search-box">
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" value="York, PA 17403">
+            </div>
+            <button class="search-button">SEARCH</button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <select class="filter-select">
+                <option>Sort By</option>
+                <option>Relevance</option>
+                <option>Distance</option>
+                <option>Rating</option>
+            </select>
+
+            <select class="filter-select">
+                <option>Ratings</option>
+                <option>5 Stars</option>
+                <option>4+ Stars</option>
+                <option>3+ Stars</option>
+            </select>
+
+            <div class="checkbox-filter">
+                <input type="checkbox" id="new-patients">
+                <label for="new-patients">Accepts New Patients</label>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <h2 class="results-title">Featured Results</h2>
+        
+        <!-- Provider 1 -->
+        <div class="provider-card">
+            <div class="provider-image">
+                <img src="{{ url_for('static', filename='images/d11.jpg') }}" alt="Provider Image">
+            </div>
+            <div class="provider-info">
+                <h3>Dr. Gregory Wayne Ross, MD</h3>
+                <p class="specialty">Internal Medicine</p>
+                <div class="rating">
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(0 Rating)</span>
+                </div>
+                <div class="provider-details">
+                    <span class="experience">41 Years Experience</span>
+                    <span class="virtual-visit">
+                        <i class="fas fa-video"></i>
+                        Virtual Visit Available
+                    </span>
+                </div>
+                <p class="address">222 N Charles St Ste 101B, Baltimore, MD, 21201 · 45.65 miles</p>
+            </div>
+            <div class="provider-actions">
+                <a class="request-btn" style="text-decoration: none;" href="{{ url_for('doctordescription_3rd' ) }}">Request Now</a>
+                <button class="phone-btn">
+                    <i class="fas fa-phone"></i>
+                    (800) 486-4617
+                </button>
+            </div>
+        </div>
+
+        <!-- Provider 2 -->
+        <div class="provider-card">
+            <div class="provider-image">
+                <img src="{{ url_for('static', filename='images/d10.jpg') }}" alt="Provider Image">
+            </div>
+            <div class="provider-info">
+                <h3>Dr. Johnson, MD</h3>
+                <p class="specialty">Family Medicine</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(32 Ratings)</span>
+                </div>
+                <div class="provider-details">
+                    <span class="experience">15 Years Experience</span>
+                    <span class="virtual-visit">
+                        <i class="fas fa-video"></i>
+                        Virtual Visit Available
+                    </span>
+                </div>
+                <p class="address">456 Main St, York, PA 17403 · 0.5 miles</p>
+            </div>
+            <div class="provider-actions">
+                <a class="request-btn" style="text-decoration: none;" href="{{ url_for('doctordescription_2nd' ) }}">Request Now</a>
+                <button class="phone-btn">
+                    <i class="fas fa-phone"></i>
+                    (717) 555-1234
+                </button>
+            </div>
+        </div>
+
+        <!-- Provider 3 -->
+        <div class="provider-card">
+            <div class="provider-image">
+                <img src="{{ url_for('static', filename='images/d5.jpg') }}" alt="Provider Image">
+            </div>
+            <div class="provider-info">
+                <h3>Dr.Vishal Thakur, DO</h3>
+                <p class="specialty">Pediatrics</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <span>(78 Ratings)</span>
+                </div>
+                <div class="provider-details">
+                    <span class="experience">22 Years Experience</span>
+                </div>
+                <p class="address">789 Oak Rd, Lancaster, PA 17601 · 25.3 miles</p>
+            </div>
+            <div class="provider-actions">
+                <a class="request-btn" style="text-decoration: none;" href="{{ url_for('doctordes' ) }}">Request Now</a>
+                <button class="phone-btn">
+                    <i class="fas fa-phone"></i>
+                    (717) 555-5678
+                </button>
+            </div>
+        </div>
+
+        <!-- Provider 4 -->
+        <div class="provider-card">
+            <div class="provider-image">
+                <img src="{{ url_for('static', filename='images/d4.jpg') }}" alt="Provider Image">
+            </div>
+            <div class="provider-info">
+                <h3>Dr.Kunal Kaushal, MD</h3>
+                <p class="specialty">Obstetrics & Gynecology</p>
+                <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                    <span>(105 Ratings)</span>
+                </div>
+                <div class="provider-details">
+                    <span class="experience">18 Years Experience</span>
+                    <span class="virtual-visit">
+                        <i class="fas fa-video"></i>
+                        Virtual Visit Available
+                    </span>
+                </div>
+                <p class="address">321 Elm St, Harrisburg, PA 17101 · 38.2 miles</p>
+            </div>
+            <div class="provider-actions">
+                <a class="request-btn" style="text-decoration: none;" href="{{ url_for('doctordescription_4th' ) }}">Request Now</a>
+                <button class="phone-btn">
+                    <i class="fas fa-phone"></i>
+                    (717) 555-9012
+                </button>
+            </div>
+        </div>
+
+        <!-- Provider 5 -->
+        <div class="provider-card">
+            <div class="provider-image">
+                <img src="{{ url_for('static', filename='images/d1.jpg') }}" alt="Provider Image">
+            </div>
+            <div class="provider-info">
+                <h3>Dr. Vansh Verma, MD</h3>
+                <p class="specialty">Cardiology</p>
+ <div class="rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="far fa-star"></i>
+                    <span>(56 Ratings)</span>
+                </div>
+                <div class="provider-details">
+                    <span class="experience">30 Years Experience</span>
+                    <span class="virtual-visit">
+                        <i class="fas fa-video"></i>
+                        Virtual Visit Available
+                    </span>
+                </div>
+                <p class="address">987 Pine St, Baltimore, MD 21201 · 50.1 miles</p>
+            </div>
+            <div class="provider-actions">
+                <a style="text-decoration: none;" class="request-btn" href="doctordescription_5th">Request Now</a>
+                <button class="phone-btn">
+                    <i class="fas fa-phone"></i>
+                    (410) 555-3456
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('logoutButton').addEventListener('click', function() {
+            fetch('/logout', {
+                method: 'POST',
+                credentials: 'include'
+            })
+            .then(response => {
+                if (response.ok) {
+                    window.location.href = '/';
+                } else {
+                    alert('Logout failed. Please try again.');
+                }
+            })
+            .catch(error => {
+                console.error('Error during logout:', error);
+                alert('An error occurred. Please try again.');
+            });
+        });
+    </script>
+</body>
+</html>

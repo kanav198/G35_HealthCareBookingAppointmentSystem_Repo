@@ -1,0 +1,42 @@
+<!-- templates/user_appointments.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Appointments</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <nav>
+        <a href="{{ url_for('patient_page') }}">Back to Patient Page</a>
+    </nav>
+    <section class="appointments">
+        <h1>My Appointments</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Requested Date</th>
+                    <th>Status</th>
+                    <th>New Date (if Rescheduled)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for appointment in appointments %}
+                <tr>
+                    <td>{{ appointment.requested_date }}</td>
+                    <td>{{ appointment.status }}</td>
+                    <td>
+                        {% if appointment.new_date %}
+                            {{ appointment.new_date }}
+                        {% else %}
+                            N/A
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

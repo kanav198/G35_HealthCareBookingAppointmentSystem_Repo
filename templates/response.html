@@ -1,0 +1,21 @@
+<!-- templates/response.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Response</title>
+</head>
+<body>
+    <h1>Appointment Response</h1>
+    {% if status %}
+        <p>Status: {{ status }}</p>
+        {% if new_date %}
+            <p>New Date: {{ new_date }}</p>
+        {% endif %}
+    {% else %}
+        <p>No response available.</p>
+    {% endif %}
+    <a href="{{ url_for('user_appointments') }}">Back to Appointments</a>
+</body>
+</html>
